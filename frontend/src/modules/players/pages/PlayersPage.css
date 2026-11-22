@@ -1,0 +1,346 @@
+.players-page {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.heading-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.page-heading h1 {
+    margin: 0 0 5px;
+    color: #eaf3fc;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.page-heading p {
+    margin: 0;
+    color: #8297ad;
+    font-size: 14px;
+}
+
+.heading-action {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0 26px;
+}
+
+/* =========================================
+   PLAYERS CARD
+========================================= */
+
+.players-card {
+    min-height: 340px;
+    padding: 26px 30px;
+
+    background: linear-gradient(120deg,
+            rgba(31, 48, 69, 0.96),
+            rgba(21, 32, 47, 0.96));
+
+    border: 1px solid #344d69;
+    border-radius: 15px;
+
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.16);
+}
+
+.players-hint {
+    margin: 0;
+    padding: 40px 0;
+    color: #9aadc1;
+    font-size: 15px;
+    text-align: center;
+}
+
+.players-error {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.players-error .form-error {
+    width: 100%;
+    margin: 0;
+}
+
+.players-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    display: grid;
+    place-items: center;
+    width: 78px;
+    height: 78px;
+    background: #1b2c40;
+    border: 1px solid #36516d;
+    border-radius: 50%;
+    color: #a9bfd4;
+    font-size: 32px;
+}
+
+.players-empty h2 {
+    margin: 6px 0 0;
+    color: #eaf3fc;
+    font-size: 22px;
+}
+
+.players-empty p {
+    max-width: 380px;
+    margin: 0 0 12px;
+    color: #9aadc1;
+    font-size: 15px;
+}
+
+.players-empty .add-player-button {
+    width: auto;
+    padding: 0 26px;
+}
+
+/* =========================================
+   PLAYERS TABLE
+========================================= */
+
+.players-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* TABLE HEADER */
+
+.players-table-head,
+.player-row {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 2.2fr) minmax(0, 1.4fr) 90px 120px;
+    align-items: center;
+    gap: 0;
+}
+
+.players-table-head {
+    padding: 15px 14px;
+    background: rgba(10, 20, 32, 0.55);
+    border: 1px solid rgba(65, 95, 125, 0.35);
+    border-radius: 9px;
+
+    color: #8297ad;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.players-table-head span {
+    min-width: 0;
+}
+
+.players-table-head span:not(:first-child) {
+    padding-left: 18px;
+    border-left: 1px solid rgba(65, 95, 125, 0.4);
+}
+
+/* PLAYER ROW */
+
+.player-row {
+    padding: 16px 14px;
+    border-bottom: 1px solid rgba(44, 66, 87, 0.6);
+    transition: background 0.2s ease;
+}
+
+.player-row> :nth-child(n + 2) {
+    min-width: 0;
+    padding-left: 18px;
+    border-left: 1px solid rgba(65, 95, 125, 0.25);
+}
+
+.player-row:last-child {
+    border-bottom: none;
+}
+
+.player-row:hover {
+    background: rgba(102, 192, 244, 0.055);
+    border-radius: 9px;
+}
+
+/* PLAYER CELL */
+
+.player-cell {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+}
+
+.player-avatar {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.player-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.player-name {
+    overflow: hidden;
+    color: #eaf3fc;
+    font-size: 16px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.player-link {
+    color: #66c0f4;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.player-link:hover {
+    text-decoration: underline;
+}
+
+.player-error {
+    color: #ff8585;
+    font-size: 12px;
+}
+
+/* STEAM ID */
+
+.player-steam-id {
+    overflow: hidden;
+    color: #9aadc1;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    text-overflow: ellipsis;
+}
+
+/* COUNTRY */
+
+.player-country {
+    color: #9aadc1;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+/* REMOVE BUTTON */
+
+.remove-button {
+    width: calc(100% - 18px);
+    height: 38px;
+
+    background: transparent;
+    border: 1px solid #4a3038;
+    border-radius: 8px;
+
+    color: #e08a8a;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.remove-button:hover:not(:disabled) {
+    background: rgba(220, 70, 70, 0.12);
+    border-color: #a4484f;
+    color: #ff9d9d;
+}
+
+.remove-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .players-table-head,
+    .player-row {
+        grid-template-columns:
+            minmax(0, 2fr) minmax(0, 1.3fr) 100px;
+    }
+
+    .players-table-head span:nth-child(3),
+    .player-country {
+        display: none;
+    }
+}
+
+@media (max-width: 650px) {
+    .page-heading {
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 24px;
+    }
+
+    .page-heading h1 {
+        font-size: 26px;
+    }
+
+    .page-heading p {
+        font-size: 13px;
+    }
+
+    .heading-action {
+        padding: 0 18px;
+    }
+
+    .players-card {
+        padding: 22px 18px;
+    }
+
+    .players-table-head {
+        display: none;
+    }
+
+    .player-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        padding: 14px 8px;
+    }
+
+    .player-row> :nth-child(n + 2) {
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .player-steam-id {
+        display: none;
+    }
+
+    .remove-button {
+        width: auto;
+        padding: 0 12px;
+    }
+}

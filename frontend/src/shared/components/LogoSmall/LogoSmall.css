@@ -1,0 +1,110 @@
+.brand-logo-mark {
+    position: relative;
+    flex-shrink: 0;
+    overflow: visible;
+    isolation: isolate;
+}
+
+.brand-logo-mark-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 195px;
+    transform-origin: top left;
+}
+
+.brand-logo-mark-inner img {
+    position: absolute;
+    display: block;
+    object-fit: contain;
+    filter: none;
+    image-rendering: auto;
+}
+
+/* White symbol */
+.mark-white {
+    left: 0;
+    top: 0;
+    width: 235px;
+    height: 179px;
+
+    opacity: 0;
+
+    animation: assemble-white 0.55s ease-out 0s both;
+}
+
+/* Blue pieces */
+.mark-blue {
+    filter: none;
+}
+
+.piece-1 {
+    left: 77px;
+    top: 63px;
+    width: 112px;
+
+    opacity: 0;
+    animation: assemble-blue 0.55s ease-out 0.35s both;
+}
+
+.piece-2 {
+    left: 34px;
+    top: 125px;
+    width: 120px;
+
+    opacity: 0;
+    animation: assemble-blue 0.55s ease-out 0.48s both;
+}
+
+.piece-3 {
+    left: 155px;
+    top: 119px;
+    width: 50px;
+
+    opacity: 0;
+    animation: assemble-blue 0.55s ease-out 0.62s both;
+}
+
+.piece-4 {
+    left: 204px;
+    top: 87px;
+    width: 49px;
+
+    opacity: 0;
+    animation: assemble-blue 0.55s ease-out 0.76s both;
+}
+
+.piece-5 {
+    left: 252px;
+    top: 50px;
+    width: 50px;
+
+    opacity: 0;
+    animation: assemble-blue 0.55s ease-out 0.90s both;
+}
+
+/* Assembly animations */
+@keyframes assemble-white {
+    from {
+        opacity: 0;
+        transform: translate(-80px, 35px) rotate(-20deg) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes assemble-blue {
+    from {
+        opacity: 0;
+        transform: translate(45px, -55px) rotate(20deg) scale(0.75);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

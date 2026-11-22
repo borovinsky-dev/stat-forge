@@ -1,0 +1,243 @@
+.brand-logo-intro {
+    position: fixed;
+    z-index: 0;
+    top: calc(50% + 300px);
+    left: calc(50% + 500px);
+
+    width: 920px;
+    height: 260px;
+
+    overflow: visible;
+    pointer-events: none;
+    isolation: isolate;
+
+    opacity: 0.20;
+    transform: translate(-50%, -50%);
+}
+
+/* Синий ореол */
+
+.brand-logo-intro::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+
+    left: 5%;
+    top: -95%;
+
+    width: 90%;
+    height: 290%;
+
+    background:
+        radial-gradient(ellipse at 38% 50%,
+            rgba(0, 145, 255, 0.12) 0%,
+            rgba(0, 105, 220, 0.06) 35%,
+            rgba(0, 65, 150, 0.02) 58%,
+            transparent 75%);
+
+    pointer-events: none;
+}
+
+/* Декоративное кольцо */
+
+.brand-logo-intro::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    left: 20%;
+    top: -95%;
+
+    width: 60%;
+    height: 290%;
+
+    border: 1px solid rgba(70, 155, 255, 0.10);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 20px rgba(0, 115, 255, 0.04),
+        inset 0 0 20px rgba(0, 115, 255, 0.02);
+
+    pointer-events: none;
+
+    animation: intro-ring-pulse 7s ease-in-out infinite;
+}
+
+/* Общие стили изображений */
+
+.brand-logo-intro img {
+    position: absolute;
+    display: block;
+    height: auto;
+    object-fit: contain;
+
+    opacity: 0;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Белая часть */
+
+.intro-white {
+    left: 0;
+    top: 0;
+    width: 25.55%;
+
+    animation: assemble-white 0.55s 0s both;
+}
+
+/* Синие части */
+
+.intro-blue {
+    animation: assemble-blue 0.55s both;
+}
+
+.intro-blue.piece-1 {
+    left: 77px;
+    top: 63px;
+    width: 112px;
+    animation-delay: 0.35s;
+}
+
+.intro-blue.piece-2 {
+    left: 34px;
+    top: 125px;
+    width: 120px;
+    animation-delay: 0.48s;
+}
+
+.intro-blue.piece-3 {
+    left: 155px;
+    top: 119px;
+    width: 50px;
+    animation-delay: 0.62s;
+}
+
+.intro-blue.piece-4 {
+    left: 204px;
+    top: 87px;
+    width: 49px;
+    animation-delay: 0.76s;
+}
+
+.intro-blue.piece-5 {
+    left: 252px;
+    top: 50px;
+    width: 50px;
+    animation-delay: 0.90s;
+}
+
+/* Надписи */
+
+.intro-text {
+    left: 315px;
+}
+
+.intro-stat {
+    top: 12px;
+    width: 423px;
+    animation: assemble-text 0.65s 1.15s both;
+}
+
+.intro-forge {
+    top: 122px;
+    width: 591px;
+    animation: assemble-text 0.65s 1.40s both;
+}
+
+/* Умеренное свечение символа */
+
+.intro-white,
+.intro-blue {
+    filter:
+        drop-shadow(0 0 3px rgba(35, 145, 255, 0.12)) drop-shadow(0 0 8px rgba(0, 105, 255, 0.06));
+}
+
+/* Умеренное свечение надписей */
+
+.intro-text {
+    filter:
+        drop-shadow(0 0 6px rgba(40, 130, 255, 0.18));
+}
+
+/* Анимация белого элемента */
+
+@keyframes assemble-white {
+    from {
+        opacity: 0;
+        transform: translate(-80px, 35px) rotate(-20deg) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0) scale(1);
+    }
+}
+
+/* Анимация синих элементов */
+
+@keyframes assemble-blue {
+    from {
+        opacity: 0;
+        transform: translate(45px, -55px) rotate(20deg) scale(0.75);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0) scale(1);
+    }
+}
+
+/* Анимация надписей */
+
+@keyframes assemble-text {
+    from {
+        opacity: 0;
+        transform: translateX(45px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Пульсация декоративного кольца */
+
+@keyframes intro-ring-pulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.98);
+    }
+
+    50% {
+        opacity: 0.65;
+        transform: scale(1.02);
+    }
+}
+
+/* Мобильная адаптация */
+
+@media (max-width: 900px) {
+    .brand-logo-intro {
+        left: calc(50% + 32px);
+        transform: translate(-50%, -50%) scale(0.65);
+        opacity: 0.18;
+    }
+}
+
+/* Учитываем настройки доступности */
+
+@media (prefers-reduced-motion: reduce) {
+    .brand-logo-intro img {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .brand-logo-intro::after {
+        animation: none;
+    }
+}

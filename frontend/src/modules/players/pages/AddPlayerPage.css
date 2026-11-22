@@ -1,0 +1,135 @@
+.add-player-page {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 55px;
+}
+
+.heading-icon {
+    color: #c7d5e0;
+    font-size: 45px;
+}
+
+.page-heading h1 {
+    margin: 0 0 9px;
+    color: #eaf3fc;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.page-heading p {
+    margin: 0;
+    color: #9aadc1;
+    font-size: 18px;
+}
+
+.add-player-card {
+    min-height: 340px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: 42px;
+
+    padding: 40px;
+
+    background: linear-gradient(120deg,
+            rgba(31, 48, 69, 0.96),
+            rgba(21, 32, 47, 0.96));
+
+    border: 1px solid #344d69;
+    border-radius: 15px;
+
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.16);
+}
+
+.steam-decoration {
+    display: none;
+}
+
+.steam-icon-wrapper {
+    width: 210px;
+    height: 210px;
+
+    display: grid;
+    place-items: center;
+
+    border: 2px solid rgba(56, 137, 199, 0.35);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 12px rgba(56, 137, 199, 0.04),
+        0 0 35px rgba(56, 137, 199, 0.12);
+}
+
+.steam-icon-ring {
+    width: 175px;
+    height: 175px;
+
+    display: grid;
+    place-items: center;
+
+    background: radial-gradient(circle at 35% 25%, #203b59, #071522);
+    border: 1px solid #294e70;
+    border-radius: 50%;
+}
+
+.steam-icon {
+    width: 125px;
+    height: 125px;
+    color: #d9e8f7;
+}
+
+.card-divider {
+    width: 1px;
+    height: 100%;
+    min-height: 250px;
+    background: linear-gradient(transparent,
+            #38526e,
+            transparent);
+}
+
+.form-content {
+    width: 100%;
+    min-width: 0;
+}
+
+.success-message {
+    margin: 17px 0 0;
+    color: #a4d007;
+    font-size: 14px;
+}
+
+@media (max-width: 650px) {
+    .page-heading {
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .page-heading h1 {
+        font-size: 28px;
+    }
+
+    .page-heading p {
+        font-size: 14px;
+    }
+
+    .heading-icon {
+        font-size: 32px;
+    }
+
+    .add-player-card {
+        padding: 24px;
+    }
+
+    .card-divider {
+        display: none;
+    }
+}

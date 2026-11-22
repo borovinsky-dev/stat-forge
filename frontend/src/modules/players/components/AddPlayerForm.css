@@ -1,0 +1,428 @@
+/* =========================================
+   ADD PLAYER FORM
+========================================= */
+
+.add-player-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Mode Switcher */
+
+.mode-switcher {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+
+    padding: 4px;
+
+    background: #0d1622;
+    border: 1px solid #2c4257;
+    border-radius: 10px;
+}
+
+.mode-tab {
+    height: 44px;
+
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+
+    color: #9aadc1;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.mode-tab:hover {
+    color: #d9e8f7;
+}
+
+.mode-tab.active {
+    background: linear-gradient(100deg, #397eb2, #285b91);
+    border: 1px solid #469edb;
+
+    color: #ffffff;
+}
+
+/* Player Preview */
+
+.player-preview {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 18px 20px;
+
+    background: #111c2a;
+    border: 1px solid #36516d;
+    border-radius: 11px;
+}
+
+.preview-avatar {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 9px;
+    object-fit: cover;
+}
+
+.preview-avatar.placeholder {
+    display: grid;
+    place-items: center;
+
+    background: #1b2c40;
+    color: #a9bfd4;
+    font-size: 26px;
+}
+
+.preview-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.preview-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #eaf3fc;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.preview-id {
+    color: #9aadc1;
+    font-size: 13px;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 14px;
+}
+
+/* Back Button */
+
+.back-button {
+    height: 61px;
+    padding: 0 28px;
+
+    background: transparent;
+    border: 1px solid #36516d;
+    border-radius: 10px;
+
+    color: #9aadc1;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.back-button:hover:not(:disabled) {
+    border-color: #66c0f4;
+    color: #d9e8f7;
+}
+
+.back-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Form Fields */
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-field label {
+    color: #e2edf8;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.form-description {
+    margin: 0 0 13px;
+
+    color: #9aadc1;
+    font-size: 15px;
+}
+
+/* =========================================
+   STEAM INPUT
+========================================= */
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    width: 100%;
+    height: 65px;
+    box-sizing: border-box;
+    padding: 0 20px;
+
+    background: #111c2a;
+    border: 1px solid #36516d;
+    border-radius: 11px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+    border-color: #66c0f4;
+    box-shadow: 0 0 0 3px rgba(102, 192, 244, 0.1);
+}
+
+.input-icon {
+    flex-shrink: 0;
+
+    color: #a9bfd4;
+    font-size: 21px;
+}
+
+.input-wrapper input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background: transparent !important;
+    background-image: none !important;
+
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+
+    caret-color: #66c0f4;
+    color-scheme: dark;
+
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.input-wrapper input::placeholder {
+    color: #73869a;
+    -webkit-text-fill-color: #73869a;
+}
+
+.input-wrapper input:disabled {
+    opacity: 0.5;
+}
+
+.input-wrapper input::selection {
+    background: rgba(102, 192, 244, 0.35);
+    color: #ffffff;
+}
+
+/* Chrome Autofill */
+
+.input-wrapper input:-webkit-autofill,
+.input-wrapper input:-webkit-autofill:hover,
+.input-wrapper input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-box-shadow: 0 0 0 1000px #111c2a inset !important;
+    caret-color: #66c0f4;
+}
+
+/* =========================================
+   ADD PLAYER BUTTON
+========================================= */
+
+.add-player-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    height: 61px;
+
+    background: linear-gradient(100deg, #397eb2, #285b91);
+    border: 1px solid #469edb;
+    border-radius: 10px;
+
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.add-player-button:hover:not(:disabled) {
+    background: linear-gradient(100deg, #4b9bd2, #3475ad);
+    box-shadow: 0 5px 20px rgba(65, 151, 211, 0.2);
+}
+
+.add-player-button:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+.add-player-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.button-icon {
+    font-size: 28px;
+    line-height: 1;
+}
+
+/* =========================================
+   FORM ERROR
+========================================= */
+
+.form-error {
+    margin: -10px 0 0;
+    padding: 12px 15px;
+
+    background: rgba(220, 70, 70, 0.1);
+    border: 1px solid rgba(220, 70, 70, 0.3);
+    border-radius: 7px;
+
+    color: #ff8585;
+    font-size: 13px;
+}
+
+/* =========================================
+   PLAYER ACTIONS
+========================================= */
+
+.player-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tracking-button,
+.remove-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* Tracking */
+
+.tracking-button {
+    color: #73869a;
+}
+
+.tracking-button:hover:not(:disabled) {
+    color: #66c0f4;
+    background: rgba(102, 192, 244, 0.1);
+    border-color: rgba(102, 192, 244, 0.2);
+}
+
+.tracking-button.is-tracked {
+    color: #66c0f4;
+    background: rgba(102, 192, 244, 0.12);
+    border-color: rgba(102, 192, 244, 0.25);
+}
+
+.tracking-check {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Tracking Spinner */
+
+.tracking-spinner {
+    width: 15px;
+    height: 15px;
+
+    border: 2px solid rgba(102, 192, 244, 0.2);
+    border-top-color: #66c0f4;
+    border-radius: 50%;
+
+    animation: tracking-spin 0.7s linear infinite;
+}
+
+@keyframes tracking-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Remove */
+
+.remove-button {
+    color: #73869a;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.remove-button:hover:not(:disabled) {
+    color: #ff7777;
+    background: rgba(255, 90, 90, 0.1);
+    border-color: rgba(255, 90, 90, 0.2);
+}
+
+/* Focus */
+
+.tracking-button:focus-visible,
+.remove-button:focus-visible,
+.back-button:focus-visible,
+.mode-tab:focus-visible,
+.add-player-button:focus-visible {
+    outline: 2px solid #66c0f4;
+    outline-offset: 2px;
+}
+
+/* Disabled */
+
+.tracking-button:disabled,
+.remove-button:disabled {
+    opacity: 0.5;
+}
+
+.tracking-button:disabled {
+    cursor: progress;
+}
+
+.remove-button:disabled {
+    cursor: not-allowed;
+}
