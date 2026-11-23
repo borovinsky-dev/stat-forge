@@ -1,4 +1,4 @@
-from app.models.base import Base
+from ..base import Base
 from uuid import UUID
 from datetime import datetime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -17,8 +17,8 @@ class PlayerGame(Base):
         UniqueConstraint("player_id", "game_id", name="uq_players_games"),
     )
 
-    player_id: Mapped[UUID] = mapped_column(ForeignKey("players.id"))
-    game_id: Mapped[UUID] = mapped_column(ForeignKey("games.id"))
+    player_id: Mapped[UUID] = mapped_column(ForeignKey("players.id"), nullable=False)
+    game_id: Mapped[UUID] = mapped_column(ForeignKey("games.id"), nullable=False)
     # Общее игровое время в минутах
     playtime_forever: Mapped[int | None] = mapped_column(BIGINT)
     # Игровое время за последние 2 недели

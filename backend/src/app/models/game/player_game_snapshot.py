@@ -1,15 +1,23 @@
 from datetime import datetime
 from uuid import UUID
-from app.models.base import Base
+from ..base import Base
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import BIGINT, Integer, TIMESTAMP, func, ForeignKey
+from sqlalchemy import BIGINT, Integer, TIMESTAMP, func, ForeignKey, UniqueConstraint
 
 
 class PlayerGameSnapshot(Base):
 
+    __table_args__ = (
+        UniqueConstraint(
+            "player_game_id",
+            "captured_at",
+            name="uq_player_game_snapshot",
+        ),
+    )
+
     player_game_id: Mapped[UUID] = mapped_column(
-        ForeignKey("playergames.id"), nullable=False
+        ForeignKey("playergames.id"), nullable=False, index=True
     )
 
     # Общее игровое время в минутах

@@ -13,7 +13,7 @@ class UserPlayer(Base):
 
     user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
     player_id: Mapped[UUID] = mapped_column(ForeignKey("players.id"), nullable=False)
-    is_tracked: Mapped[bool] = mapped_column(Boolean, default=True)
+    is_tracked: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), server_default=func.now(), nullable=False
