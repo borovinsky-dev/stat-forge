@@ -6,6 +6,10 @@ export async function getPlayers(signal?: AbortSignal): Promise<PlayerResponse[]
     return apiRequest<PlayerResponse[]>("/players/", { signal });
 }
 
+export function getPlayer(playerId: string, signal?: AbortSignal): Promise<PlayerResponse> {
+    return apiRequest<PlayerResponse>(`/players/${playerId}`, { signal });
+}
+
 export async function addPlayer(data: PlayerCreate): Promise<PlayerResponse> {
     return apiRequest<PlayerResponse>("/players/add", {
         method: "POST",
@@ -15,8 +19,14 @@ export async function addPlayer(data: PlayerCreate): Promise<PlayerResponse> {
 
 /** Убирает игрока из отслеживания. */
 export async function deletePlayer(playerId: string): Promise<void> {
-    await apiRequest<{ message: string }>(`/players/${playerId}`, {
+    await apiRequest<void>(`/players/${playerId}`, {
         method: "DELETE",
+    });
+}
+
+export function syncPlayer(playerId: string): Promise<PlayerResponse> {
+    return apiRequest<PlayerResponse>(`/players/${playerId}/sync`, {
+        method: "POST",
     });
 }
 

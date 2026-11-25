@@ -1,9 +1,0 @@
-[project]
-name = "mock-steam-api"
-version = "0.1.0"
-requires-python = ">=3.14"
-dependencies = [
-    "fastapi>=0.162.7",
-    "pydantic>=2.14.3",
-    "uvicorn[standard]>=0.54.0",
-]

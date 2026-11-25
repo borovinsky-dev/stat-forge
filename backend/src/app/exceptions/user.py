@@ -2,12 +2,11 @@ from .base import AppException
 
 
 class UserAlreadyExistsError(AppException):
-    def __init__(self, email: str):
+    def __init__(self, email: str | None = None, username: str | None = None):
         self.email = email
-        super().__init__(f"User with email {email} already exists")
-
-    def __str__(self) -> str:
-        return f"User with email {self.email} already exists"
+        self.username = username
+        field, value = ("email", email) if email is not None else ("username", username)
+        super().__init__(f"User with {field} {value} already exists")
 
 
 class InactiveUserError(AppException):

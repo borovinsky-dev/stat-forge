@@ -62,6 +62,12 @@ export function PlayersPage() {
         setPlayers((current) => current.filter((p) => p.id !== playerId));
     }
 
+    function handleUpdated(updatedPlayer: PlayerResponse) {
+        setPlayers((current) => current.map((player) =>
+            player.id === updatedPlayer.id ? updatedPlayer : player,
+        ));
+    }
+
     return (
         <main className="players-page">
             <div className="page-heading">
@@ -70,7 +76,7 @@ export function PlayersPage() {
 
                     <p>
                         {isAddView
-                            ? "Add a player to your Stat Forge database by their Steam ID."
+                            ? "Add a player to your Stat Forge database by Steam ID or profile URL."
                             : "Players you are currently tracking in Stat Forge."}
                     </p>
                 </div>
@@ -156,6 +162,7 @@ export function PlayersPage() {
                                     key={player.id}
                                     player={player}
                                     onRemoved={handleRemoved}
+                                    onUpdated={handleUpdated}
                                 />
                             ))}
                         </div>

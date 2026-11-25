@@ -134,9 +134,14 @@
 .player-row {
     display: grid;
     grid-template-columns:
-        minmax(0, 2.2fr) minmax(0, 1.4fr) 90px 120px;
+        minmax(0, 2.2fr) minmax(0, 1.4fr) 90px 160px;
     align-items: center;
     gap: 0;
+}
+
+.player-row .player-actions {
+    justify-content: flex-end;
+    gap: 6px;
 }
 
 .players-table-head {
@@ -217,6 +222,15 @@
     white-space: nowrap;
 }
 
+.player-details-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.player-details-link:hover {
+    color: #66c0f4;
+}
+
 .player-link {
     color: #66c0f4;
     font-size: 13px;
@@ -225,6 +239,11 @@
 
 .player-link:hover {
     text-decoration: underline;
+}
+
+.player-sync-time {
+    color: #73869a;
+    font-size: 11px;
 }
 
 .player-error {
@@ -253,15 +272,16 @@
 /* REMOVE BUTTON */
 
 .remove-button {
-    width: calc(100% - 18px);
-    height: 38px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
 
     background: transparent;
     border: 1px solid #4a3038;
     border-radius: 8px;
 
     color: #e08a8a;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 700;
 
     cursor: pointer;
@@ -288,7 +308,7 @@
     .players-table-head,
     .player-row {
         grid-template-columns:
-            minmax(0, 2fr) minmax(0, 1.3fr) 100px;
+            minmax(0, 2fr) minmax(0, 1.3fr) 150px;
     }
 
     .players-table-head span:nth-child(3),
@@ -340,7 +360,7 @@
     }
 
     .remove-button {
-        width: auto;
-        padding: 0 12px;
+        width: 36px;
+        padding: 0;
     }
 }

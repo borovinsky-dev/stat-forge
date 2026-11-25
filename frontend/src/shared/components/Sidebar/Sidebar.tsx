@@ -95,7 +95,7 @@ export function Sidebar({
                                     <NavLink
                                         to={item.path}
                                         key={item.name}
-                                        end={item.path !== "/players"}
+                                        end={item.path === "/dashboard"}
                                         className={({ isActive }) =>
                                             `sidebar-item ${isActive ? "active" : ""}`
                                         }

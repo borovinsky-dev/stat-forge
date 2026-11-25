@@ -1,0 +1,402 @@
+.dashboard-page {
+    width: min(100%, 1400px);
+    margin: 0 auto;
+    color: #eaf3fc;
+}
+
+.dashboard-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 26px;
+}
+
+.dashboard-kicker {
+    margin: 0 0 8px;
+    color: #7bbcf0;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.dashboard-heading h1 {
+    margin: 0 0 7px;
+    color: #eaf3fc;
+    font-size: 30px;
+    letter-spacing: -.6px;
+}
+
+.dashboard-description {
+    margin: 0;
+    color: #91a5bd;
+    font-size: 13px;
+}
+
+.dashboard-preview-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    padding: 8px 11px;
+    border: 1px solid rgba(115, 160, 200, .22);
+    border-radius: 999px;
+    background: rgba(26, 43, 62, .76);
+    color: #a7bad0;
+    font-size: 11px;
+}
+
+.dashboard-preview-badge > span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e3b761;
+    box-shadow: 0 0 8px rgba(227, 183, 97, .55);
+}
+
+.dashboard-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.dashboard-metric-card,
+.dashboard-panel {
+    border: 1px solid rgba(75, 105, 137, .62);
+    border-radius: 13px;
+    background: linear-gradient(125deg, rgba(30, 47, 67, .96), rgba(20, 31, 46, .97));
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .12);
+}
+
+.dashboard-metric-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 11px;
+    row-gap: 0;
+    min-width: 0;
+    padding: 18px;
+}
+
+.dashboard-metric-icon {
+    display: grid;
+    grid-row: span 2;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid currentColor;
+    border-radius: 10px;
+}
+
+.metric-blue { color: #78bafa; background: rgba(75, 147, 218, .1); border-color: rgba(100, 165, 230, .2); }
+.metric-violet { color: #b29bf3; background: rgba(134, 103, 209, .1); border-color: rgba(157, 130, 222, .2); }
+.metric-cyan { color: #67d0d5; background: rgba(64, 166, 172, .1); border-color: rgba(95, 194, 199, .2); }
+.metric-green { color: #84d1a7; background: rgba(71, 157, 110, .1); border-color: rgba(105, 190, 143, .2); }
+
+.dashboard-metric-label {
+    overflow: hidden;
+    color: #91a5bd;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-metric-card > strong {
+    grid-column: 2;
+    margin-top: 4px;
+    color: #edf4fb;
+    font-size: 23px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.4px;
+}
+
+.dashboard-metric-card > strong small {
+    color: #9aadc1;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.dashboard-metric-note {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    margin-top: 14px;
+    color: #71869d;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(300px, .9fr);
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.dashboard-panel {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.dashboard-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 19px 21px 15px;
+}
+
+.dashboard-panel-heading h2 {
+    margin: 0;
+    color: #e8f1fa;
+    font-size: 14px;
+}
+
+.dashboard-panel-heading p {
+    margin: 5px 0 0;
+    color: #8297ad;
+    font-size: 11px;
+}
+
+.dashboard-period {
+    flex: 0 0 auto;
+    padding: 6px 9px;
+    border: 1px solid rgba(107, 139, 173, .2);
+    border-radius: 7px;
+    color: #9aadc1;
+    font-size: 10px;
+}
+
+.dashboard-chart-wrap {
+    padding: 3px 17px 13px;
+}
+
+.dashboard-chart {
+    display: block;
+    width: 100%;
+    height: 190px;
+    overflow: visible;
+}
+
+.chart-gridline {
+    stroke: rgba(131, 157, 184, .12);
+    stroke-dasharray: 3 6;
+    stroke-width: 1;
+}
+
+.chart-line {
+    fill: none;
+    stroke: #67b9f3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 5px rgba(75, 169, 235, .25));
+}
+
+.chart-point {
+    fill: #172638;
+    stroke: #80c9ff;
+    stroke-width: 2;
+}
+
+.dashboard-chart-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    color: #71869d;
+    font-size: 10px;
+}
+
+.panel-heading-icon {
+    flex: 0 0 auto;
+    color: #7fa4c8;
+}
+
+.sync-list {
+    margin: 0;
+    padding: 0 20px;
+    list-style: none;
+}
+
+.sync-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(89, 119, 151, .18);
+}
+
+.sync-item:last-child {
+    border-bottom: 0;
+}
+
+.sync-avatar {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(106, 158, 207, .22);
+    border-radius: 9px;
+    background: linear-gradient(145deg, #2b4d6d, #1c3046);
+    color: #b8ddfb;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.sync-player-info {
+    display: grid;
+    flex: 1;
+    gap: 4px;
+    min-width: 0;
+}
+
+.sync-player-info strong {
+    overflow: hidden;
+    color: #dce8f5;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sync-player-info small {
+    color: #71869d;
+    font-size: 10px;
+}
+
+.sync-item time {
+    flex: 0 0 auto;
+    color: #8297ad;
+    font-size: 10px;
+}
+
+.dashboard-data-note {
+    margin: 0;
+    padding: 11px 20px 15px;
+    color: #647b93;
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+.games-panel .dashboard-panel-heading {
+    border-bottom: 1px solid rgba(89, 119, 151, .2);
+}
+
+.games-table-head,
+.games-table-row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(75px, .7fr) minmax(140px, 1fr) minmax(120px, .8fr);
+    align-items: center;
+    gap: 14px;
+    padding: 13px 21px;
+}
+
+.games-table-head {
+    color: #71869d;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+}
+
+.games-table-row {
+    border-top: 1px solid rgba(89, 119, 151, .16);
+    color: #a9bbce;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}
+
+.games-table-row > strong {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+    overflow: hidden;
+    color: #dce8f5;
+    font-size: 11px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-dot {
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: #64b9f5;
+    box-shadow: 0 0 8px rgba(100, 185, 245, .38);
+}
+
+.games-table-row:nth-child(3) .game-dot { background: #ab97ef; }
+.games-table-row:nth-child(4) .game-dot { background: #69c9b3; }
+.game-change { color: #84d1a7; }
+
+.dashboard-preview-note {
+    margin: 14px 2px 0;
+    color: #70859b;
+    font-size: 10px;
+    text-align: right;
+}
+
+@media (max-width: 1100px) {
+    .dashboard-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-main-grid {
+        grid-template-columns: minmax(0, 1.35fr) minmax(270px, .9fr);
+    }
+}
+
+@media (max-width: 780px) {
+    .dashboard-main-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .dashboard-heading h1 {
+        font-size: 26px;
+    }
+
+    .dashboard-metrics {
+        gap: 10px;
+    }
+
+    .dashboard-metric-card {
+        padding: 13px;
+    }
+
+    .dashboard-metric-card > strong {
+        font-size: 20px;
+    }
+
+    .dashboard-panel-heading {
+        padding: 16px;
+    }
+
+    .dashboard-chart-wrap {
+        padding: 3px 10px 12px;
+    }
+
+    .games-table-head,
+    .games-table-row {
+        grid-template-columns: minmax(0, 1.5fr) minmax(50px, .6fr) minmax(92px, .9fr);
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .games-table-head > :last-child,
+    .games-table-row > :last-child {
+        display: none;
+    }
+}
+

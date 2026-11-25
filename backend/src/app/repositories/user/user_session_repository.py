@@ -67,3 +67,24 @@ class UserSessionRepo(BaseRepo[UserSession]):
     ) -> None:
         user_session.last_used_at = datetime.now(timezone.utc)
         await self.session.flush()
+
+    async def revoke_by_id_for_user(
+        self,
+        session_id: UUID,
+        user_id: UUID,
+    ) -> bool:
+        now = datetime.now(timezone.utc)
+
+        query = (
+            update(UserSession)
+            .where(
+                UserSession.id == session_id,
+                UserSession.user_id == user_id,
+                UserSession.revoked_at.is_(None),
+                UserSession.expires_at > now,
+            )
+            .values(revoked_at=now)
+        )
+
+        result = await self.session.execute(query)
+        return result.rowcount == 1
