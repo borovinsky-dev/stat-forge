@@ -1,5 +1,5 @@
 import { apiRequest } from "../../../shared/services/api";
-import type { PlayerCreate, PlayerResponse, PlayerUpdate } from "../types/player";
+import type { PlayerCreate, PlayerGamesResponse, PlayerResponse, PlayerUpdate } from "../types/player";
 
 /** Список игроков, которые уже отслеживаются. */
 export async function getPlayers(signal?: AbortSignal): Promise<PlayerResponse[]> {
@@ -26,6 +26,19 @@ export async function deletePlayer(playerId: string): Promise<void> {
 
 export function syncPlayer(playerId: string): Promise<PlayerResponse> {
     return apiRequest<PlayerResponse>(`/players/${playerId}/sync`, {
+        method: "POST",
+    });
+}
+
+export function getPlayerStatistics(
+    playerId: string,
+    signal?: AbortSignal,
+): Promise<PlayerGamesResponse> {
+    return apiRequest<PlayerGamesResponse>(`/players/${playerId}/games/`, { signal });
+}
+
+export function syncPlayerStatistics(playerId: string): Promise<PlayerGamesResponse> {
+    return apiRequest<PlayerGamesResponse>(`/players/${playerId}/games/sync`, {
         method: "POST",
     });
 }

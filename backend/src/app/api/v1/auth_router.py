@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, Request, Response, status
 
 from app.api.dependencies.auth import get_auth_service
 from app.api.session_cookies import set_session_cookie
-from app.models.core.user import User
 from app.schemas.user import UserCreate, UserLogin, UserResponse
 from app.services.user.auth_service import AuthService
 
@@ -19,11 +18,11 @@ async def register(
     response: Response,
     request: Request,
     auth_service: AuthService = Depends(get_auth_service),
-) -> User:
+) -> UserResponse:
     user_agent = request.headers.get("User-Agent")
-    user, token = await auth_service.register(payload, user_agent)
-    set_session_cookie(response, token)
-    return user
+    result = await auth_service.register(payload, user_agent)
+    set_session_cookie(response, result.session_token)
+    return result.user
 
 
 @router.post(
@@ -36,8 +35,8 @@ async def login(
     response: Response,
     request: Request,
     auth_service: AuthService = Depends(get_auth_service),
-) -> User:
+) -> UserResponse:
     user_agent = request.headers.get("User-Agent")
-    user, token = await auth_service.login(payload, user_agent)
-    set_session_cookie(response, token)
-    return user
+    result = await auth_service.login(payload, user_agent)
+    set_session_cookie(response, result.session_token)
+    return result.user

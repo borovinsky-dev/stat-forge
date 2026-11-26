@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Clock3, Laptop, Monitor, Smartphone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../auth/context/AuthContext";
+import { useAuth } from "../../auth/context/useAuth";
 import { getSessions, revokeSession } from "../services/sessions";
 import type { UserSession } from "../types/session";
 import "./SettingsPage.css";
@@ -71,7 +71,9 @@ export function SecurityPage() {
 
     useEffect(() => {
         const controller = new AbortController();
-        void loadSessions(controller.signal);
+        queueMicrotask(() => {
+            if (!controller.signal.aborted) void loadSessions(controller.signal);
+        });
         return () => controller.abort();
     }, [loadSessions]);
 

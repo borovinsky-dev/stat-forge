@@ -21,6 +21,25 @@ class SteamClient:
         players = response.json().get("response", {}).get("players", [])
         return players[0] if players else None
 
+    async def get_owned_games(self, steam_id: str) -> list[dict[str, Any]] | None:
+        response = await self.async_client.get(
+            f"{self.base_url}/IPlayerService/GetOwnedGames/v1/",
+            params={
+                "key": self.api_key,
+                "steamid": steam_id,
+                "include_appinfo": 1,
+                "include_played_free_games": 1,
+            },
+        )
+        response.raise_for_status()
+        result = response.json().get("response", {})
+        # Steam returns an empty object when the profile's game details are private.
+        if "games" not in result:
+            if result.get("game_count") == 0:
+                return []
+            return None
+        return result["games"]
+
     async def resolve_vanity_url(self, vanity_name: str) -> str | None:
         response = await self.async_client.get(
             f"{self.base_url}/ISteamUser/ResolveVanityURL/v1/",

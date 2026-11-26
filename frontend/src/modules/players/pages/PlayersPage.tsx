@@ -48,7 +48,9 @@ export function PlayersPage() {
     useEffect(() => {
         const controller = new AbortController();
 
-        queueMicrotask(() => void loadPlayers(controller.signal));
+        queueMicrotask(() => {
+            if (!controller.signal.aborted) void loadPlayers(controller.signal);
+        });
 
         return () => controller.abort();
     }, [loadPlayers]);

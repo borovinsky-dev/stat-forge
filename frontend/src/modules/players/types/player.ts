@@ -23,6 +23,32 @@ export interface PlayerUpdate {
     is_tracked?: boolean;
 }
 
+export interface GameResponse {
+    id: string;
+    steam_app_id: number;
+    name: string;
+    img_icon_url: string;
+    is_active: boolean;
+}
+
+export interface PlayerGameResponse {
+    id: string;
+    player_id: string;
+    game_id: string;
+    game: GameResponse;
+    playtime_forever: number | null;
+    playtime_2weeks: number | null;
+    playtime_windows_forever: number | null;
+    rtime_last_played: number | null;
+    last_fetched_at: string | null;
+}
+
+export interface PlayerGamesResponse {
+    games: PlayerGameResponse[];
+    is_available: boolean | null;
+    message: string | null;
+}
+
 /** Способ, которым пользователь вводит игрока. */
 export type PlayerInputMode = "steam-id" | "profile-url";
 

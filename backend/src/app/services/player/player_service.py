@@ -21,6 +21,7 @@ from app.repositories.player.player_repository import PlayerRepo
 from app.repositories.player.steam_player_repository import SteamPlayerRepo
 from app.repositories.player.user_player_repository import UserPlayerRepo
 from app.schemas.player import PlayerResponse, SteamPlayerFromSteam
+from app.schemas.common import OperationResponse
 
 
 class PlayerService:
@@ -200,7 +201,9 @@ class PlayerService:
             await self.session.rollback()
             raise
 
-    async def remove_player_for_user(self, user_id: UUID, player_id: UUID) -> None:
+    async def remove_player_for_user(
+        self, user_id: UUID, player_id: UUID
+    ) -> OperationResponse:
         try:
             user_player = await self.user_player_repo.get_by_user_and_player(
                 user_id,
@@ -211,6 +214,7 @@ class PlayerService:
 
             await self.user_player_repo.delete(user_player)
             await self.session.commit()
+            return OperationResponse()
         except Exception:
             await self.session.rollback()
             raise

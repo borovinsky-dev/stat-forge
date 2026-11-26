@@ -6,11 +6,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.security.session_manager import session_manager
 from app.exceptions import InactiveUserError, InvalidSessionError
-from app.models.core.user import User
 from app.models.core.user_session import UserSession
 from app.repositories.user.user_repository import UserRepo
 from app.repositories.user.user_session_repository import UserSessionRepo
-from app.schemas.session.session_response import SessionResponse
+from app.schemas.session import SessionResponse, SessionRevocationResponse
+from app.schemas.session.session_token_response import SessionTokenResponse
+from app.schemas.user.user_response import UserResponse
+from app.schemas.common import CountResponse, OperationResponse
 
 
 class SessionService:
@@ -22,7 +24,9 @@ class SessionService:
         self.user_session_repo = UserSessionRepo(session)
         self.session_manager = session_manager
 
-    async def create_session(self, user: User, user_agent: str | None) -> str:
+    async def create_session(
+        self, user: UserResponse, user_agent: str | None
+    ) -> SessionTokenResponse:
         if not user.is_active:
             raise InactiveUserError()
 
@@ -36,7 +40,7 @@ class SessionService:
             user_agent=user_agent[:512] if user_agent else None,
         )
         await self.user_session_repo.create(user_session)
-        return token
+        return SessionTokenResponse(token=token)
 
     async def _get_active_session(self, token: str | None) -> UserSession:
         if token is None:
@@ -52,7 +56,7 @@ class SessionService:
             raise InvalidSessionError()
         return user_session
 
-    async def get_current_user(self, token: str | None) -> User:
+    async def get_current_user(self, token: str | None) -> UserResponse:
         user_session = await self._get_active_session(token)
         user = await self.user_repo.get_by_id(user_session.user_id)
         if user is None:
@@ -66,7 +70,7 @@ class SessionService:
         except Exception:
             await self.session.rollback()
             raise
-        return user
+        return UserResponse.model_validate(user)
 
     async def get_active_sessions(
         self,
@@ -96,7 +100,7 @@ class SessionService:
         session_id: UUID,
         user_id: UUID,
         current_token: str | None,
-    ) -> bool | None:
+    ) -> SessionRevocationResponse:
         current_session = await self._get_active_session(current_token)
         is_current = current_session.id == session_id
 
@@ -107,27 +111,38 @@ class SessionService:
             )
             if not revoked:
                 await self.session.rollback()
-                return None
+                return SessionRevocationResponse(
+                    session_id=session_id,
+                    found=False,
+                    revoked=False,
+                    is_current=False,
+                )
             await self.session.commit()
-            return is_current
+            return SessionRevocationResponse(
+                session_id=session_id,
+                found=True,
+                revoked=True,
+                is_current=is_current,
+            )
         except Exception:
             await self.session.rollback()
             raise
 
-    async def logout(self, token: str | None) -> None:
+    async def logout(self, token: str | None) -> OperationResponse:
         user_session = await self._get_active_session(token)
         try:
             await self.user_session_repo.revoke(user_session)
             await self.session.commit()
+            return OperationResponse()
         except Exception:
             await self.session.rollback()
             raise
 
-    async def logout_all(self, user_id: UUID) -> int:
+    async def logout_all(self, user_id: UUID) -> CountResponse:
         try:
             revoked_count = await self.user_session_repo.revoke_all_by_user_id(user_id)
             await self.session.commit()
-            return revoked_count
+            return CountResponse(count=revoked_count)
         except Exception:
             await self.session.rollback()
             raise

@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from app.api.dependencies.auth import get_current_user, get_session_service
 from app.api.dependencies.session import get_session_cookie
 from app.api.session_cookies import delete_session_cookie
-from app.models.core.user import User
+from app.schemas.user import UserResponse
 from app.schemas.session.session_response import SessionResponse
 from app.services.user.session_service import SessionService
 
@@ -17,7 +17,7 @@ async def logout(
     response: Response,
     access_token: str | None = Depends(get_session_cookie),
     session_service: SessionService = Depends(get_session_service),
-    _current_user: User = Depends(get_current_user),
+    _current_user: UserResponse = Depends(get_current_user),
 ) -> None:
     await session_service.logout(access_token)
     delete_session_cookie(response)
@@ -27,7 +27,7 @@ async def logout(
 async def logout_all(
     response: Response,
     session_service: SessionService = Depends(get_session_service),
-    current_user: User = Depends(get_current_user),
+    current_user: UserResponse = Depends(get_current_user),
 ) -> None:
     await session_service.logout_all(current_user.id)
     delete_session_cookie(response)
@@ -37,7 +37,7 @@ async def logout_all(
 async def get_sessions(
     access_token: str | None = Depends(get_session_cookie),
     session_service: SessionService = Depends(get_session_service),
-    current_user: User = Depends(get_current_user),
+    current_user: UserResponse = Depends(get_current_user),
 ) -> list[SessionResponse]:
     return await session_service.get_active_sessions(current_user.id, access_token)
 
@@ -48,14 +48,14 @@ async def revoke_session(
     response: Response,
     access_token: str | None = Depends(get_session_cookie),
     session_service: SessionService = Depends(get_session_service),
-    current_user: User = Depends(get_current_user),
+    current_user: UserResponse = Depends(get_current_user),
 ) -> None:
     was_current = await session_service.revoke_session_for_user(
         session_id=session_id,
         user_id=current_user.id,
         current_token=access_token,
     )
-    if was_current is None:
+    if not was_current.found:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found.")
-    if was_current:
+    if was_current.is_current:
         delete_session_cookie(response)

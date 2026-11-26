@@ -27,6 +27,7 @@ from app.api.v1.account_router import router as account_router
 from app.api.v1.auth_router import router as auth_router
 from app.api.v1.session_router import router as session_router
 from app.api.v1.player_router import router as player_router
+from app.api.v1.game_router import router as game_router
 from app.external.steam import SteamClient
 
 
@@ -73,6 +74,7 @@ app.include_router(auth_router, prefix="/api/v1")
 app.include_router(account_router, prefix="/api/v1")
 app.include_router(session_router, prefix="/api/v1")
 app.include_router(player_router, prefix="/api/v1")
+app.include_router(game_router, prefix="/api/v1")
 
 app.add_middleware(
     CORSMiddleware,

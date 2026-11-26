@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight, LockKeyhole, Mail, UserRound } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import "./AuthPage.css";
 import whiteSymbol from "../../../assets/brand/stat-forge/01_white_symbol.png";
 import statText from "../../../assets/brand/stat-forge/02_stat.png";

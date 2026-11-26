@@ -5,8 +5,9 @@ from app.repositories.user.user_repository import UserRepo
 from app.core.security.password import password_hash
 
 from app.schemas.user import UserCreate, UserUpdate
+from app.schemas.user import UserResponse
+from app.schemas.common import OperationResponse
 from app.models.core.user import User
-
 from app.exceptions import InvalidCredentialsError, UserAlreadyExistsError
 
 
@@ -15,7 +16,7 @@ class UserService:
         self.user_repo = UserRepo(session)
         self.password_hasher = password_hash
 
-    async def create_user(self, payload: UserCreate) -> User:
+    async def create_user(self, payload: UserCreate) -> UserResponse:
         existed_user = await self.user_repo.get_by_email(payload.email)
 
         if existed_user is not None:
@@ -31,16 +32,16 @@ class UserService:
 
         await self.user_repo.create(user)
 
-        return user
+        return UserResponse.model_validate(user)
 
-    async def update_profile(self, user_id: UUID, payload: UserUpdate) -> User:
+    async def update_profile(self, user_id: UUID, payload: UserUpdate) -> UserResponse:
         user = await self.user_repo.get_by_id(user_id)
         if user is None:
             raise InvalidCredentialsError()
 
         changes = payload.model_dump(exclude_unset=True)
         if not changes:
-            return user
+            return UserResponse.model_validate(user)
 
         if "username" in changes and changes["username"] != user.username:
             existing = await self.user_repo.get_by_username(changes["username"])
@@ -64,12 +65,14 @@ class UserService:
             # after the UPDATE; refresh it while still in async ORM context
             # before FastAPI serializes the response model.
             await self.user_repo.session.refresh(updated_user)
-            return updated_user
+            return UserResponse.model_validate(updated_user)
         except Exception:
             await self.user_repo.session.rollback()
             raise
 
-    async def change_password(self, user_id: UUID, current_password: str, new_password: str) -> None:
+    async def change_password(
+        self, user_id: UUID, current_password: str, new_password: str
+    ) -> OperationResponse:
         user = await self.user_repo.get_by_id(user_id)
         if user is None or not self.password_hasher.verify(current_password, user.hashed_password):
             raise InvalidCredentialsError()
@@ -78,6 +81,7 @@ class UserService:
         try:
             await self.user_repo.session.flush()
             await self.user_repo.session.commit()
+            return OperationResponse()
         except Exception:
             await self.user_repo.session.rollback()
             raise

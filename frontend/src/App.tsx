@@ -18,7 +18,7 @@ import { SecurityPage } from "./modules/settings/pages/SecurityPage";
 import { DashboardPage } from "./modules/dashboard/pages/DashboardPage";
 import { LogoLarge } from "./shared/components/LogoLarge/LogoLarge";
 import { AuthPage } from "./modules/auth/pages/AuthPage";
-import { useAuth } from "./modules/auth/context/AuthContext";
+import { useAuth } from "./modules/auth/context/useAuth";
 
 import "./App.css";
 

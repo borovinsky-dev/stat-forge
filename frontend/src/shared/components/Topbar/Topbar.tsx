@@ -1,7 +1,7 @@
 
 import { ChevronRight, LogOut, Settings as SettingsIcon, Users } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../modules/auth/context/AuthContext";
+import { useAuth } from "../../../modules/auth/context/useAuth";
 
 import "./Topbar.css";
 

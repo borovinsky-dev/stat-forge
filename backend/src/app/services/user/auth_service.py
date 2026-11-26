@@ -5,8 +5,8 @@ from app.repositories.user.user_repository import UserRepo
 from app.schemas.user import UserCreate, UserLogin
 from app.services.user.session_service import SessionService
 from app.services.user.user_service import UserService
-from app.models.core.user import User
 from app.exceptions import InvalidCredentialsError, InactiveUserError
+from app.schemas.user import AuthResponse, UserResponse
 
 
 class AuthService:
@@ -23,12 +23,12 @@ class AuthService:
         self,
         payload: UserCreate,
         user_agent: str | None = None,
-    ) -> tuple[User, str]:
+    ) -> AuthResponse:
         try:
             user = await self.user_service.create_user(payload)
-            token = await self.session_service.create_session(user, user_agent)
+            session_token = await self.session_service.create_session(user, user_agent)
             await self.session.commit()
-            return user, token
+            return AuthResponse(user=user, session_token=session_token.token)
         except Exception:
             await self.session.rollback()
             raise
@@ -37,7 +37,7 @@ class AuthService:
         self,
         payload: UserLogin,
         user_agent: str | None = None,
-    ) -> tuple[User, str]:
+    ) -> AuthResponse:
         user = await self.user_repo.get_by_email(payload.email)
         if user is None:
             raise InvalidCredentialsError()
@@ -49,9 +49,12 @@ class AuthService:
             raise InactiveUserError()
 
         try:
-            token = await self.session_service.create_session(user, user_agent)
+            user_response = UserResponse.model_validate(user)
+            session_token = await self.session_service.create_session(
+                user_response, user_agent
+            )
             await self.session.commit()
-            return user, token
+            return AuthResponse(user=user_response, session_token=session_token.token)
         except Exception:
             await self.session.rollback()
             raise

@@ -1,7 +1,5 @@
 import {
-    createContext,
     useCallback,
-    useContext,
     useEffect,
     useMemo,
     useState,
@@ -9,38 +7,28 @@ import {
 } from "react";
 import * as authService from "../services/auth";
 import type { LoginPayload, RegisterPayload, User } from "../types/auth";
-
-type AuthStatus = "loading" | "authenticated" | "unauthenticated";
-
-interface AuthContextValue {
-    user: User | null;
-    status: AuthStatus;
-    signIn: (payload: LoginPayload) => Promise<void>;
-    signUp: (payload: RegisterPayload) => Promise<void>;
-    signOut: () => Promise<void>;
-    signOutAll: () => Promise<void>;
-    updateProfile: (payload: { username: string; email: string }) => Promise<User>;
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null);
+import { AuthContext, type AuthContextValue } from "./auth-context";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
-    const [status, setStatus] = useState<AuthStatus>("loading");
+    const [status, setStatus] = useState<AuthContextValue["status"]>("loading");
 
     useEffect(() => {
         const controller = new AbortController();
-        void authService.getCurrentUser(controller.signal)
-            .then((currentUser) => {
-                setUser(currentUser);
-                setStatus("authenticated");
-            })
-            .catch(() => {
-                if (!controller.signal.aborted) {
-                    setUser(null);
-                    setStatus("unauthenticated");
-                }
-            });
+        queueMicrotask(() => {
+            if (controller.signal.aborted) return;
+            void authService.getCurrentUser(controller.signal)
+                .then((currentUser) => {
+                    setUser(currentUser);
+                    setStatus("authenticated");
+                })
+                .catch(() => {
+                    if (!controller.signal.aborted) {
+                        setUser(null);
+                        setStatus("unauthenticated");
+                    }
+                });
+        });
         return () => controller.abort();
     }, []);
 
@@ -76,10 +64,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const value = useMemo(() => ({ user, status, signIn, signUp, signOut, signOutAll, updateProfile }), [user, status, signIn, signUp, signOut, signOutAll, updateProfile]);
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth() {
-    const context = useContext(AuthContext);
-    if (!context) throw new Error("useAuth must be used within AuthProvider");
-    return context;
 }

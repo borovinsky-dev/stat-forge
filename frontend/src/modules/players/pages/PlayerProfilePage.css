@@ -118,6 +118,94 @@
     font-size: 18px;
 }
 
+.player-profile-section-heading h2,
+.player-games-card .player-profile-section-heading > div > p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player-games-card .player-profile-section-heading > div > p {
+    margin: 6px 0 0;
+    color: #8297ad;
+    font-size: 12px;
+}
+
+.player-games-card .player-profile-section-heading {
+    align-items: center;
+}
+
+.player-games-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-game-row {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) minmax(105px, .55fr) minmax(105px, .55fr);
+    align-items: center;
+    gap: 14px;
+    min-height: 70px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(65, 95, 125, 0.35);
+}
+
+.player-game-row > img,
+.player-game-fallback {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 7px;
+    background: #142336;
+    color: #8aa7c1;
+    object-fit: cover;
+}
+
+.player-game-name,
+.player-game-stat {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+}
+
+.player-game-name strong,
+.player-game-stat strong {
+    overflow: hidden;
+    color: #eaf3fc;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.player-game-name span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #8297ad;
+    font-size: 11px;
+}
+
+.player-game-stat span,
+.player-profile-muted {
+    color: #8297ad;
+    font-size: 11px;
+}
+
+.player-profile-empty-games,
+.player-profile-games-error {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 0 2px;
+    color: #9aadc1;
+    font-size: 13px;
+}
+
+.player-profile-games-error {
+    justify-content: space-between;
+}
+
 .player-profile-badge {
     padding: 5px 9px;
     border: 1px solid #5d4b32;
@@ -199,5 +287,20 @@
 
     .player-profile-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .player-game-row {
+        grid-template-columns: 38px minmax(0, 1fr) minmax(85px, .5fr);
+        gap: 10px;
+    }
+
+    .player-game-row > img,
+    .player-game-fallback {
+        width: 38px;
+        height: 38px;
+    }
+
+    .player-game-stat:last-child {
+        display: none;
     }
 }
